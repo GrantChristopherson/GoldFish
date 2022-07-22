@@ -2,10 +2,12 @@ const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const noteBowlsRouter = require('./noteBowls.js')
+const notesRouter = require('./notes.js')
 
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/notebowls', noteBowlsRouter);
+router.use('/notes', notesRouter)
 
 ////---- POST /test used for testing restoreCSRF and other functionality
  
