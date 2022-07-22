@@ -5,13 +5,12 @@ const { check } = require('express-validator');
 
 //----------Internal Modules------------
 const { handleValidationErrors } = require('../../utils/validation');
-const { requireAuth } = require('../../utils/auth');
 const db = require('../../db/models')
 
 
+//---------------------------------------
 
 const router = express.Router();
-
 
 
 //------------NoteBowl Validator---------
@@ -28,21 +27,20 @@ const validateNoteBowl = [
 
 //------------API Routes------------------
 
-
-// Get All NoteBowls linked (users.id = noteBowls.userId)
 // READ
+// Get All NoteBowls linked to User (users.id = noteBowls.userId)
 router.get('/:userId', asyncHandler( async (req, res) => {
   const userId = req.params.userId;
   const noteBowls = await db.NoteBowl.findAll({
     where: { userId: userId },
-    order: [['updatedAt', "DESC"]]
+    order: [['updatedAt', 'DESC']]
   })
   return res.json( noteBowls )
 }))
 
 
-// Get All Notes linked to a NoteBowl (noteBowls.id = notes.noteBowlId)
 // READ
+// Get All Notes linked to specific NoteBowl (noteBowls.id = notes.noteBowlId)
 router.get('/:noteBowlId/notes', asyncHandler( async (req, res) => {
   const noteBowlId = req.params.noteBowlId;
   const notes = await db.Note.findAll({
@@ -53,8 +51,8 @@ router.get('/:noteBowlId/notes', asyncHandler( async (req, res) => {
 }))
 
 
-//Create new NoteBowl linked (user.id = noteBowls.userId) NOT TESTED YET!
 //CREATE
+//Create new NoteBowl as User (user.id = noteBowls.userId) NOT TESTED YET!
 router.post('/:userId', validateNoteBowl, asyncHandler( async (req, res) => {
   const userId = req.params.userId;
   const { title } = req.body;
@@ -63,27 +61,35 @@ router.post('/:userId', validateNoteBowl, asyncHandler( async (req, res) => {
 }));
 
 
-
-// //Update existing NoteBowl linked (user.id = noteBowls.userId) NOT TESTED YET!
 // //UPDATE
-// router.put('/:id', asyncHandler( async (req, res) => {
-//   const id = await db.NoteBowl.update(req.body);
-//   return res.redirect(`${req.baseUrl}/${id}`);
-// }));
+// //User updates existing NoteBowl (changes title of noteBowl) (user.id = noteBowls.userId) NOT TESTED YET!
+router.put('/:id', validateNoteBowl, asyncHandler( async (req, res) => {
+  const { title } = req.body
+  const noteBowl = await db.NoteBowl.findByPk(req.params.id)
+  if (noteBowl) {
+    noteBowl.title = title;
+    await noteBowl.save();
+    res.json({ 
+      message: 'Success', 
+      noteBowl
+    })
+  } else {
+    res.json({ message: 'Fail' })
+  }
+}));
 
 
-
-// //Delete existing NoteBowl linked (user.id => noteBowls.userId) NOT TESTED YET!
 // //DELETE
-// router.delete('/:id(\\d+)', asyncHandler( async (req, res) => {
-//   const noteBowl = await db.NoteBowl.findByPk(req.params.id);
-//   if (noteBowl) {
-//     await noteBowl.destroy();
-//     res.json({ message: 'Successfully deleted' });
-//   } else {
-//     res.json({ message: 'Failed to delete' });
-//   };
-// }));
+// //User deletes existing NoteBowl (user.id = noteBowls.userId) NOT TESTED YET!
+router.delete('/:id', asyncHandler( async (req, res) => {
+  const noteBowl = await db.NoteBowl.findByPk(req.params.id);
+  if (noteBowl) {
+    await noteBowl.destroy();
+    res.json({ message: 'Successfully deleted' });
+  } else {
+    res.json({ message: 'Failed to delete' });
+  };
+}));
 
 
 
