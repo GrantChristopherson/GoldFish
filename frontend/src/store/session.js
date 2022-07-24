@@ -2,13 +2,12 @@ import { csrfFetch } from './csrf';
 
 
 
-
 //contains all the actions specific to the session user's info and their Redux reducer.
 
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 
-//------Thunk Action Creators
+//----------------------------
 
 const setUser = (user) => {
   return {
@@ -24,7 +23,7 @@ const removeUser = () => {
 };
 
 
-//---------Thunk Action Middleware
+//---------Thunk Action Creators
 
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
@@ -74,7 +73,7 @@ export const signup = (user) => async (dispatch) => {
 };
 
 
-//-----------Reducer
+//-----------Reducer--------------------------------------
 
 const initialState = { user: null };  //what session slice of state looks like without session user
 
