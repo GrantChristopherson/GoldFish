@@ -3,12 +3,14 @@ import thunk from 'redux-thunk';
 
 import sessionReducer from './session';
 import noteBowlReducer from './noteBowls';
+import notesReducer from './notes';
 
 
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  noteBowls: noteBowlReducer
+  noteBowls: noteBowlReducer,
+  notes: notesReducer
   
 });
 

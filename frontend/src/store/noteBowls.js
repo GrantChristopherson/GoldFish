@@ -5,7 +5,7 @@ const LOAD = 'notebowls/LOAD';
 const load = list => ({
   type: LOAD,
   list
-})
+});
 
 
 //-----------Thunk-Action-Creators-------------------//
@@ -17,12 +17,13 @@ export const getNoteBowls = (id) => async dispatch => {
   if (res.ok) {
     const list = await res.json();
     dispatch(load(list));
-  }
-}
+  };
+};
 
 
 
 //------------------Reducer--------------------------//
+
 
 const initialState = {
   list: []
@@ -30,9 +31,11 @@ const initialState = {
 
 const sortList = (list) => {
   return list.sort((noteBowlA, noteBowlB) => {
-    return noteBowlA.id - noteBowlB.id;
-  }).map((noteBowl) => noteBowl.title);
+    return noteBowlA.id - noteBowlB.id
+  });
 };
+
+
 
 export default function noteBowlReducer(state = initialState, action) {
   switch(action.type) {
@@ -48,5 +51,5 @@ export default function noteBowlReducer(state = initialState, action) {
       };
     default:
       return state;
-  }
-}
+  };
+};

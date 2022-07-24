@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import { getNoteBowls } from '../../store/noteBowls';
 
@@ -22,17 +23,23 @@ const NoteBowlsList = () => {
   }
 
 
+
   return (
     <div className='noteBowls-list'>
+      {console.log('usersNoteBowls-------------', usersNoteBowls)}
+      {/* {console.log('noteBowl-------------', noteBowl)} */}
       <h2>Notebowls</h2>
       <ul>
-        {usersNoteBowls.map((noteBowl, i) => {
+        {usersNoteBowls && usersNoteBowls.map(noteBowl => {
           return (
-            <div className='listed-noteBowl'>
-              <li key={i}>{noteBowl}</li>
+            <div  key={noteBowl.id} className='listed-noteBowl'>
+              <li key={noteBowl.id}>
+                <NavLink  to={`/noteBowls/${noteBowl.userId}/notes`} 
+                          key={noteBowl.id}
+                          >{noteBowl.title}</NavLink></li>
               <div>
                 <button> v </button>
-                <button> - </button>
+                {!noteBowl.default && <button> - </button>}
               </div>
             </div>
           )
