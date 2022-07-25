@@ -10,10 +10,10 @@ const load = list => ({
   list
 });
 
-const addNoteBowl = noteBowl => ({
-  type: ADD_NOTEBOWL,
-  noteBowl
-})
+// const addNoteBowl = noteBowl => ({
+//   type: ADD_NOTEBOWL,
+//   noteBowl
+// })
 
 
 
@@ -30,16 +30,15 @@ export const getNoteBowls = (id) => async dispatch => {
 
 
 export const newNoteBowl = (payload) => async dispatch => {
-  console.log('this is the payload---------',payload.userId)
   const res = await csrfFetch(`/api/notebowls/${payload.userId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
   if (res.ok) {
-    const noteBowl = await res.json();
-    dispatch(addNoteBowl(noteBowl));
-    return noteBowl;
+    const noteBowls = await res.json();
+    dispatch(load(noteBowls));
+    return noteBowls;
   }
 };
 
@@ -51,11 +50,11 @@ const initialState = {
   list: []
 };
 
-const sortList = (list) => {
-  return list.sort((noteBowlA, noteBowlB) => {
-    return noteBowlA.id - noteBowlB.id
-  });
-};
+// const sortList = (list) => {
+//   return list.sort((noteBowlA, noteBowlB) => {
+//     return noteBowlA.id - noteBowlB.id
+//   });
+// };
 
 
 
@@ -67,29 +66,18 @@ export default function noteBowlReducer(state = initialState, action) {
         allUsersNoteBowls[noteBowl.id] = noteBowl;
       });
       return {
-        ...allUsersNoteBowls,
         ...state,
-        list: sortList(action.list)
+        ...allUsersNoteBowls,
+        list: action.list
       };
     case ADD_NOTEBOWL:
-      console.log('noteBowls.id-----------', action.noteBowls.id)
-      if (!state[action.noteBowls.id]) {
         const newState = {
           ...state,
-          [action.noteBowls.id]: action.noteBowls
+          [action.noteBowl.id]: action.noteBowl
         };
-        const noteBowlList = newState.list.map(noteBowl => newState[noteBowl]);
-        noteBowlList.push(action.noteBowls);
-        newState.list = sortList(noteBowlList);
-        return newState;
-      }
-      return {
-        ...state,
-        [action.noteBowls.id]: {
-          ...state[action.noteBowls.id],
-          ...action.noteBowls
-        }
-      };
+        const newList = [action.noteBowl, ...state.list]
+        newState.list = newList
+        return newState
     default:
       return state;
   };
