@@ -17,9 +17,9 @@ function LoginFormPage() {
   const [errors, setErrors] = useState([]);
 
 
-  if (sessionUser) return (
-    <Redirect to="/" />
-  );
+  if (sessionUser) {
+    history.push('/home');
+  }
 
 
   const handleSubmit = (e) => {

@@ -1,15 +1,23 @@
 
 
 const LOAD = 'notebowls/LOAD';
+const ADD_NOTEBOWL = 'notebowls/ADD_NOTEBOWL';
+
+
 
 const load = list => ({
   type: LOAD,
   list
 });
 
+const addNoteBowl = noteBowl => ({
+  type: ADD_NOTEBOWL,
+  noteBowl
+})
+
+
 
 //-----------Thunk-Action-Creators-------------------//
-
 
 export const getNoteBowls = (id) => async dispatch => {
   const res = await fetch(`api/notebowls/${id}`);
@@ -21,9 +29,22 @@ export const getNoteBowls = (id) => async dispatch => {
 };
 
 
+export const newNoteBowl = (payload) => async dispatch => {
+  const res = await fetch(`/api/notebowls/${payload.userId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (res.ok) {
+    const noteBowl = await res.json();
+    dispatch(addNoteBowl(noteBowl));
+    return noteBowl;
+  }
+};
+
+
 
 //------------------Reducer--------------------------//
-
 
 const initialState = {
   list: []
@@ -48,6 +69,24 @@ export default function noteBowlReducer(state = initialState, action) {
         ...allUsersNoteBowls,
         ...state,
         list: sortList(action.list)
+      };
+    case ADD_NOTEBOWL:
+      if (!state[action.noteBowls.id]) {
+        const newState = {
+          ...state,
+          [action.noteBowls.id]: action.noteBowls
+        };
+        const noteBowlList = newState.list.map(noteBowl => newState[noteBowl]);
+        noteBowlList.push(action.noteBowls);
+        newState.list = sortList(noteBowlList);
+        return newState;
+      };
+      return {
+        ...state,
+        [action.noteBowls.id]: {
+          ...state[action.noteBowls.id],
+          ...action.noteBowls
+        }
       };
     default:
       return state;

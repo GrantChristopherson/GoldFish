@@ -39,13 +39,14 @@ const sortList = (list) => {
 export default function notesReducer(state = initialState, action) {
   switch(action.type) {
     case LOAD_NOTES:
-      const newNotes = {};
-      action.notes.forEach(note => {
-        newNotes[note.id] = note;
+      const noteBowlsNotes = {};
+      action.list.forEach(note => {
+        noteBowlsNotes[note.id] = note;
       });
       return {
+        ...noteBowlsNotes,
         ...state,
-        ...newNotes
+        list: sortList(...noteBowlsNotes)
       }
     default:
       return state;
