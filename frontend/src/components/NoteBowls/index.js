@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { getNoteBowls } from '../../store/noteBowls';
+import NoteBowlCreator from '../NoteBowlCreator';
 
 
 
@@ -13,6 +14,8 @@ const NoteBowlsList = () => {
 
   const sessionUser = useSelector(state => state.session.user);
   const usersNoteBowls = useSelector(state => state.noteBowls.list);
+
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     dispatch(getNoteBowls(sessionUser.id))
@@ -27,14 +30,13 @@ const NoteBowlsList = () => {
   return (
     <div className='noteBowls-list'>
       {console.log('usersNoteBowls-------------', usersNoteBowls)}
-      {/* {console.log('noteBowl-------------', noteBowl)} */}
       <h2>Notebowls</h2>
       <ul>
         {usersNoteBowls && usersNoteBowls.map(noteBowl => {
           return (
             <div  key={noteBowl.id} className='listed-noteBowl'>
               <li key={noteBowl.id}>
-                <NavLink  to={`/noteBowls/${noteBowl.userId}/notes`} 
+                <NavLink  to={`/noteBowls/${noteBowl.id}/notes`} 
                           key={noteBowl.id}
                           >{noteBowl.title}</NavLink></li>
               <div>
@@ -45,7 +47,8 @@ const NoteBowlsList = () => {
           )
         })}
       </ul>
-      <button> + </button>
+      <button onClick={() => setShowForm(true)}> + </button>
+      <NoteBowlCreator hideForm={() => setShowForm(false)}/>
     </div>
   );
 };

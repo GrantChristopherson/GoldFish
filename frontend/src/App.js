@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from 'react-router-dom';
-
-import { useSelector } from 'react-redux';
 
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import GoldFishBrowser from './components/GoldFishBrowser';
+import NoteBowlsList from './components/NoteBowls';
+import NotesList from './components/NotesList';
+import NoteText from './components/NoteText';
+
 
 
 
@@ -29,17 +30,24 @@ function App() {
   let sessionComponents;
   if (sessionUser) {
     sessionComponents = (
-      <GoldFishBrowser user={sessionUser} />
+      <div>
+        <Route exact path='/home'>
+          <NoteBowlsList />
+          <NotesList />
+          <NoteText />
+        </Route>
+      </div>
     );
   } else {
     sessionComponents = (
       <div>
-        <h2>Nothing to see until login</h2>
+        <h2>Splash Page</h2>
       </div>
     )
   }
-
-
+          
+  
+  
   return (
     <>
       <Navigation isLoaded={isLoaded} />
@@ -53,8 +61,9 @@ function App() {
       {isLoaded && sessionComponents}
     </>
   );
-};
+  };
+  
+  
+  
+  export default App;
 
-
-
-export default App;
