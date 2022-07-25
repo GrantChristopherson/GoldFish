@@ -29,7 +29,6 @@ const NoteBowlsList = () => {
 
   return (
     <div className='noteBowls-list'>
-      {console.log('usersNoteBowls-------------', usersNoteBowls)}
       <h2>Notebowls</h2>
       <ul>
         {usersNoteBowls && usersNoteBowls.map(noteBowl => {

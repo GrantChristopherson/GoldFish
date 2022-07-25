@@ -28,7 +28,7 @@ const NoteBowlCreator = () => {
 
     let addNoteBowl = await dispatch(newNoteBowl(payload));
     if (addNoteBowl) {
-      history.push(`/home`);
+      // history.push(`/home`);
       hideForm();
     }
   }

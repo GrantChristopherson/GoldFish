@@ -1,4 +1,4 @@
-
+import { csrfFetch } from "./csrf";
 
 const LOAD = 'notebowls/LOAD';
 const ADD_NOTEBOWL = 'notebowls/ADD_NOTEBOWL';
@@ -30,7 +30,8 @@ export const getNoteBowls = (id) => async dispatch => {
 
 
 export const newNoteBowl = (payload) => async dispatch => {
-  const res = await fetch(`/api/notebowls/${payload.userId}`, {
+  console.log('this is the payload---------',payload.userId)
+  const res = await csrfFetch(`/api/notebowls/${payload.userId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
@@ -71,6 +72,7 @@ export default function noteBowlReducer(state = initialState, action) {
         list: sortList(action.list)
       };
     case ADD_NOTEBOWL:
+      console.log('noteBowls.id-----------', action.noteBowls.id)
       if (!state[action.noteBowls.id]) {
         const newState = {
           ...state,
@@ -80,7 +82,7 @@ export default function noteBowlReducer(state = initialState, action) {
         noteBowlList.push(action.noteBowls);
         newState.list = sortList(noteBowlList);
         return newState;
-      };
+      }
       return {
         ...state,
         [action.noteBowls.id]: {
