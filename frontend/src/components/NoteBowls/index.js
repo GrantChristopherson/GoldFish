@@ -15,7 +15,7 @@ const NoteBowlsList = () => {
   const sessionUser = useSelector(state => state.session.user);
   const usersNoteBowls = useSelector(state => state.noteBowls.list);
 
-  const [showForm, setShowForm] = useState(false);
+  const [showNoteBowlForm, setShowNoteBowlForm] = useState(false);
 
   useEffect(() => {
     dispatch(getNoteBowls(sessionUser.id))
@@ -36,19 +36,18 @@ const NoteBowlsList = () => {
           return (
             <div  key={noteBowl.id} className='listed-noteBowl'>
               <li key={noteBowl.id}>
-                <NavLink  to={`/noteBowls/${noteBowl.id}/notes`} 
+                <NavLink  to={`/home/${noteBowl.id}/notes`} 
                           key={noteBowl.id}
                           >{noteBowl.title}</NavLink></li>
               <div>
-                <button> v </button>
                 {!noteBowl.default && <button> - </button>}
               </div>
             </div>
           )
         })}
       </ul>
-      <button onClick={() => setShowForm(true)}> + </button>
-      <NoteBowlCreator hideForm={() => setShowForm(false)}/>
+      <button onClick={() => setShowNoteBowlForm(true)}> + </button>
+      {showNoteBowlForm && <NoteBowlCreator />}
     </div>
   );
 };

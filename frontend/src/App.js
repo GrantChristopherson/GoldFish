@@ -18,6 +18,7 @@ function App() {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector(state => state.session.user);
+  const noteBowlId = useSelector(state => state.notes.noteBowlId)
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -31,11 +32,15 @@ function App() {
   if (sessionUser) {
     sessionComponents = (
       <div>
-        <Route exact path='/home'>
+        <Route path='/home'>
           <NoteBowlsList />
-          <NotesList />
-          <NoteText />
         </Route>
+        <Route path={`/home/${noteBowlId}/notes`}>
+          <NotesList />
+        </Route>
+        // <Route path=''>
+          <NoteText />
+        // </Route>
       </div>
     );
   } else {
