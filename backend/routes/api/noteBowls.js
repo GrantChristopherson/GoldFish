@@ -54,7 +54,7 @@ router.get('/:noteBowlId/notes', asyncHandler( async (req, res) => {
 //CREATE
 //Create new NoteBowl as User (user.id = noteBowls.userId) NOT TESTED YET!
 router.post('/:id', validateNoteBowl, asyncHandler( async (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.params.id;
   const { title } = req.body;
   const noteBowl = await db.NoteBowl.create({ userId, title });
   res.json( noteBowl );
