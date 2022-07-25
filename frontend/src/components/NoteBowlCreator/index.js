@@ -6,14 +6,17 @@ import { newNoteBowl } from '../../store/noteBowls';
 
 
 
-const NoteBowlCreator = ({ hideForm }) => {
+const NoteBowlCreator = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
   const sessionUserId = useSelector(state => state.session.user.id);
 
   const [title, setTitle] = useState('');
+  const [showNoteBowlForm, setShowNoteBowlForm] = useState(false);
 
+
+  const hideForm =() => setShowNoteBowlForm(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ const NoteBowlCreator = ({ hideForm }) => {
 
     let addNoteBowl = await dispatch(newNoteBowl(payload));
     if (addNoteBowl) {
-      history.push(`/notebowls/${sessionUserId}/new`);
+      history.push(`/home`);
       hideForm();
     }
   }
