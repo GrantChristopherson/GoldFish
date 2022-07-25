@@ -57,7 +57,12 @@ router.post('/:id', validateNoteBowl, asyncHandler( async (req, res) => {
   const userId = req.params.id;
   const { title } = req.body;
   const noteBowl = await db.NoteBowl.create({ userId, title });
-  res.json( noteBowl );
+  const noteBowls = await db.NoteBowl.findAll({
+    where: { userId: userId },
+    order: [['updatedAt', 'DESC']]
+  })
+
+  res.json( noteBowls );
 }));
 
 
