@@ -15,9 +15,8 @@ const load = list => ({
 //   noteBowl
 // })
 
-const remove = (userId, id) => ({
+const remove = (id) => ({
   type: REMOVE_NOTEBOWL,
-  userId,
   id
 });
 
@@ -89,8 +88,9 @@ export default function noteBowlReducer(state = initialState, action) {
     case REMOVE_NOTEBOWL:
         const revisedState = { ...state };
         const revisedList = [ ...state.list.filter(
-          (noteBowlId) => noteBowlId !== action.noteBowl.id
+          (noteBowlId) => noteBowlId !== action.id
         )]
+        delete revisedState[action.id]
         revisedState.list = revisedList
         return revisedState
     default:
