@@ -1,22 +1,18 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { newNoteBowl } from '../../store/noteBowls';
 
 
 
-const NoteBowlCreator = () => {
+const NoteBowlCreator = ({ hideForm }) => {
 
-  const history = useHistory();
+
   const dispatch = useDispatch();
   const sessionUserId = useSelector(state => state.session.user.id);
 
   const [title, setTitle] = useState('');
-  const [showNoteBowlForm, setShowNoteBowlForm] = useState(false);
 
-
-  const hideForm =() => setShowNoteBowlForm(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,10 +24,9 @@ const NoteBowlCreator = () => {
 
     let addNoteBowl = await dispatch(newNoteBowl(payload));
     if (addNoteBowl) {
-      // history.push(`/home`);
       hideForm();
-    }
-  }
+    };
+  };
 
   const handleCancelClick = (e) => {
     e.preventDefault();

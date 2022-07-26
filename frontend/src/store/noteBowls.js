@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD = 'notebowls/LOAD';
 const ADD_NOTEBOWL = 'notebowls/ADD_NOTEBOWL';
-
+const REMOVE_NOTEBOWL = 'notebowls/REMOVE_NOTEBOWL';
 
 
 const load = list => ({
@@ -15,13 +15,18 @@ const load = list => ({
 //   noteBowl
 // })
 
+const remove = (userId, id) => ({
+  type: REMOVE_NOTEBOWL,
+  userId,
+  id
+});
+
 
 
 //-----------Thunk-Action-Creators-------------------//
 
 export const getNoteBowls = (id) => async dispatch => {
   const res = await fetch(`api/notebowls/${id}`);
-
   if (res.ok) {
     const list = await res.json();
     dispatch(load(list));
@@ -43,20 +48,23 @@ export const newNoteBowl = (payload) => async dispatch => {
 };
 
 
+export const deleteNoteBowl = (id) => async dispatch => {
+  const res = await csrfFetch(`/api/notebowls/${id}`, {
+    method: 'delete'
+  });
+  if (res.ok) {
+    const id= await res.json();
+    dispatch(remove(id));
+  };
+};
+
+
 
 //------------------Reducer--------------------------//
 
 const initialState = {
   list: []
 };
-
-// const sortList = (list) => {
-//   return list.sort((noteBowlA, noteBowlB) => {
-//     return noteBowlA.id - noteBowlB.id
-//   });
-// };
-
-
 
 export default function noteBowlReducer(state = initialState, action) {
   switch(action.type) {
@@ -78,6 +86,13 @@ export default function noteBowlReducer(state = initialState, action) {
         const newList = [action.noteBowl, ...state.list]
         newState.list = newList
         return newState
+    case REMOVE_NOTEBOWL:
+        const revisedState = { ...state };
+        const revisedList = [ ...state.list.filter(
+          (noteBowlId) => noteBowlId !== action.noteBowl.id
+        )]
+        revisedState.list = revisedList
+        return revisedState
     default:
       return state;
   };
