@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -30,6 +31,9 @@ const NoteBowlsList = () => {
 
   const hideForm = () => setShowNoteBowlForm(false)
 
+
+
+
   return (
     <div className='noteBowls-list'>
       <h2>Notebowls</h2>
@@ -43,7 +47,12 @@ const NoteBowlsList = () => {
                           >{noteBowl.title}</NavLink></li>
               <div>
                 {!noteBowl.default && <button 
-                onClick={() => dispatch(deleteNoteBowl(noteBowl.id))}
+                onClick={async (e) => {
+                  e.preventDefault();
+              
+                  await dispatch(deleteNoteBowl(noteBowl.id))
+                }
+              }
                 > - </button>}
               </div>
             </div>
