@@ -20,7 +20,9 @@ const NoteBowlsList = () => {
 
   useEffect(() => {
     dispatch(getNoteBowls(sessionUser.id))
-  }, [dispatch, sessionUser])
+  }, [dispatch, sessionUser.id])
+
+
 
   if (!usersNoteBowls) {
     return null;
