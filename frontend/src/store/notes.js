@@ -1,8 +1,8 @@
-
+import { csrfFetch } from "./csrf";
 
 const LOAD_NOTES = 'notes/LOAD_NOTES';
 
-const load = (notes, noteBowlId) => ({
+const loadNotes = (notes, noteBowlId) => ({
   type: LOAD_NOTES,
   notes,
   noteBowlId
@@ -13,11 +13,11 @@ const load = (notes, noteBowlId) => ({
 
 
 export const getNoteBowlNotes = (noteBowlId) => async dispatch => {
-  const res = await fetch(`api/notebowls/${noteBowlId}`);
+  const res = await csrfFetch(`api/notebowls/${noteBowlId}`);
   
   if (res.ok) {
     const notesList = await res.json();
-    dispatch(load(notesList));
+    dispatch(loadNotes(notesList));
   };
 };
 
@@ -38,10 +38,10 @@ export default function notesReducer(state = initialState, action) {
         noteBowlsNotes[note.id] = note;
       });
       return {
-        ...noteBowlsNotes,
         ...state,
-        
-      }
+        ...noteBowlsNotes,
+        list: action.list
+      };
     default:
       return state;
   };
