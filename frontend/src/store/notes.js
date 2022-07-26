@@ -30,12 +30,6 @@ const initialState = {
   list: []
 };
 
-const sortList = (list) => {
-  return list.sort((noteA, noteB) => {
-    return noteA.id - noteB.id
-  });
-};
-
 export default function notesReducer(state = initialState, action) {
   switch(action.type) {
     case LOAD_NOTES:
@@ -46,7 +40,7 @@ export default function notesReducer(state = initialState, action) {
       return {
         ...noteBowlsNotes,
         ...state,
-        list: sortList(...noteBowlsNotes)
+        
       }
     default:
       return state;

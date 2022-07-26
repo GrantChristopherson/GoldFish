@@ -52,7 +52,6 @@ export const deleteNoteBowl = (id) => async dispatch => {
     method: 'delete'
   });
   if (res.ok) {
-    const id= await res.json();
     dispatch(remove(id));
   };
 };
@@ -86,12 +85,13 @@ export default function noteBowlReducer(state = initialState, action) {
         newState.list = newList
         return newState
     case REMOVE_NOTEBOWL:
-        const revisedState = { ...state };
+        const revisedState = { ...state, list: [ ...state.list] };
         const revisedList = [ ...state.list.filter(
-          (noteBowlId) => noteBowlId !== action.id
+          (noteBowl) => noteBowl.id !== action.id
         )]
+        const finalArray = [ ...revisedList ]
         delete revisedState[action.id]
-        revisedState.list = revisedList
+        revisedState.list = finalArray
         return revisedState
     default:
       return state;
