@@ -43,17 +43,19 @@ const NoteBowlsList = () => {
             <div  key={noteBowl.id} className='listed-noteBowl'>
               <li key={noteBowl.id}>
                 <NavLink  to={`/home/${noteBowl.id}/notes`} 
-                          key={noteBowl.id}
-                          >{noteBowl.title}</NavLink></li>
+                          key={noteBowl.id}>
+                          {noteBowl.title}
+                </NavLink>
+              </li>
               <div>
-                {!noteBowl.default && <button 
+              {!noteBowl.default && <button 
                 onClick={async (e) => {
                   e.preventDefault();
               
                   await dispatch(deleteNoteBowl(noteBowl.id))
                 }
               }
-                > - </button>}
+              > - </button>}
               </div>
             </div>
           )
