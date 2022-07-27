@@ -25,7 +25,7 @@ const remove = (id) => ({
 //-----------Thunk-Action-Creators-------------------//
 
 export const getNoteBowls = (id) => async dispatch => {
-  const res = await csrfFetch(`api/notebowls/${id}`);
+  const res = await csrfFetch(`/api/notebowls/${id}`);
   if (res.ok) {
     const list = await res.json();
     dispatch(load(list));
