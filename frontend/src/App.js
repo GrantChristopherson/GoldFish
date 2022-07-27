@@ -7,7 +7,6 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import NoteBowlsList from './components/NoteBowls';
 import NotesList from './components/NotesList';
-import NoteText from './components/NoteText';
 
 
 
@@ -17,10 +16,10 @@ function App() {
   const dispatch = useDispatch();
 
   const sessionUser = useSelector(state => state.session.user);
-  // const noteBowlId = useSelector(state => state.notes.noteBowlId)
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showNoteList, setShowNoteList] = useState(false);
+  const [showNote, setShowNote] = useState(false);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -33,8 +32,7 @@ function App() {
       <div>
         <Route path='/home'>
           <NoteBowlsList setShowNoteList={setShowNoteList}/>
-          {showNoteList && <NotesList showNoteList={showNoteList}/>}
-          <NoteText />
+          {showNoteList && <NotesList showNote={showNote} setShowNote={setShowNote}/>}
         </Route>
       </div>
     );

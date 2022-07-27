@@ -1,28 +1,25 @@
-// import { useEffect, useState } from 'react'
-// import { useDispatch } from 'react-redux';
+
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-
-// import { getNoteBowlNotes } from '../../store/notes'
-
+import NoteText from '../NoteText';
 
 
-const NotesList = () => {
 
- 
+const NotesList = ({ showNote, setShowNote }) => {
+
  
   const noteBowlsNotes = useSelector(state => state.notes.notesList);
   
   useEffect(() => {
-    console.log('noteBowlsNotes---------', noteBowlsNotes)
-
   },[noteBowlsNotes])
 
+  const hideNote = () => setShowNote(false)
 
-  // if (!noteBowlsNotes) {
-  //   return null;
-  // }
+  if (!noteBowlsNotes) {
+    return null;
+  }
+
 
   return (
     <div className='notes-list'>
@@ -43,7 +40,8 @@ const NotesList = () => {
           )
         })}
       </ul>
-      <button> + </button>
+      {!showNote && <button onClick={() => setShowNote(true)}> + </button>}
+      {showNote && <NoteText hideNote={hideNote}/>}
     </div>
   );
 };

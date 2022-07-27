@@ -21,6 +21,20 @@ export const getNoteBowlNotes = (noteBowlId) => async dispatch => {
   };
 };
 
+export const createNote = (payload) => async dispatch => {
+  const res = await csrfFetch(`/api/notes/${payload.userId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (res.ok) {
+    const notes = await res.json();
+    console.log('notes---------', notes)
+    dispatch(loadNotes(notes));
+    return notes;
+  }
+}
+
 
 
 //------------------Reducer--------------------------//
