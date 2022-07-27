@@ -11,21 +11,20 @@ import NoteText from './components/NoteText';
 
 
 
-
 function App() {
 
 
   const dispatch = useDispatch();
 
   const sessionUser = useSelector(state => state.session.user);
-  const noteBowlId = useSelector(state => state.notes.noteBowlId)
+  // const noteBowlId = useSelector(state => state.notes.noteBowlId)
 
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showNoteList, setShowNoteList] = useState(false);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
-
 
   
   let sessionComponents;
@@ -33,14 +32,10 @@ function App() {
     sessionComponents = (
       <div>
         <Route path='/home'>
-          <NoteBowlsList />
-        </Route>
-        <Route path={`/home/${noteBowlId}/notes`}>
-          <NotesList />
-        </Route>
-        // <Route path=''>
+          <NoteBowlsList setShowNoteList={setShowNoteList}/>
+          {showNoteList && <NotesList showNoteList={showNoteList}/>}
           <NoteText />
-        // </Route>
+        </Route>
       </div>
     );
   } else {

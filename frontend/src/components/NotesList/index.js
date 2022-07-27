@@ -1,36 +1,40 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+// import { useEffect, useState } from 'react'
+// import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-import { getNoteBowlNotes } from '../../store/notes'
+
+// import { getNoteBowlNotes } from '../../store/notes'
 
 
 
 const NotesList = () => {
 
-  const { id } = useParams();
-
-  const dispatch = useDispatch();
-  const noteBowlsNotes = useSelector(state => state.notes.list);
-
-  // const [showNoteForm, setShowNoteForm] = useState(false);
-
+ 
+ 
+  const noteBowlsNotes = useSelector(state => state.notes.notesList);
+  
   useEffect(() => {
-    dispatch(getNoteBowlNotes(id))
-  }, [dispatch, id])
+    console.log('noteBowlsNotes---------', noteBowlsNotes)
+
+  },[noteBowlsNotes])
+
+
+  // if (!noteBowlsNotes) {
+  //   return null;
+  // }
 
   return (
     <div className='notes-list'>
       <h2>Notes</h2>
       <ul>
-        {noteBowlsNotes.list && noteBowlsNotes.list.map(note => {
+        {noteBowlsNotes && noteBowlsNotes.map(note => {
           return (
-            <div key={note.id} className='listed=note'>
+            <div key={note.id} className='listed-note'>
               <li key={note.id}>
-                <NavLink  to={`/home/${id}/notes/${note.id}`}
-                          key={note.id}>
-                          {note.title}
-                </NavLink>
+                <h3 key={note.id}>
+                    {note.title}
+                </h3>
               </li>
               <div>
                 <button> - </button>
@@ -48,3 +52,4 @@ const NotesList = () => {
 
 export default NotesList;
                             
+                          

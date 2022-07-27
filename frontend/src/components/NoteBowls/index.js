@@ -1,15 +1,15 @@
 
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
 import { getNoteBowls, deleteNoteBowl } from '../../store/noteBowls';
+import { getNoteBowlNotes } from '../../store/notes'
 import NoteBowlCreator from '../NoteBowlCreator';
 
 
 
 
-const NoteBowlsList = () => {
+const NoteBowlsList = ({ setShowNoteList }) => {
   
 
   const dispatch = useDispatch();
@@ -23,14 +23,11 @@ const NoteBowlsList = () => {
     dispatch(getNoteBowls(sessionUser.id))
   }, [dispatch, sessionUser.id])
 
-
-
   if (!usersNoteBowls) {
     return null;
   }
 
   const hideForm = () => setShowNoteBowlForm(false)
-
 
 
 
@@ -42,14 +39,19 @@ const NoteBowlsList = () => {
           return (
             <div  key={noteBowl.id} className='listed-noteBowl'>
               <li key={noteBowl.id}>
-                <NavLink  to={`/home/${noteBowl.id}/notes`} 
-                          key={noteBowl.id}>
-                          {noteBowl.title}
-                </NavLink>
+                <h3 key={noteBowl.id} onClick={ async (e) => {
+                  e.preventDefault();
+
+                  await dispatch(getNoteBowlNotes(noteBowl.id))
+                  setShowNoteList(true)}
+                }
+                >
+                  {noteBowl.title}
+                </h3>
               </li>
               <div>
               {!noteBowl.default && <button 
-                onClick={async (e) => {
+                onClick={ async (e) => {
                   e.preventDefault();
               
                   await dispatch(deleteNoteBowl(noteBowl.id))
