@@ -19,10 +19,8 @@ const removeNote = (id) => ({
 
 export const getNoteBowlNotes = (noteBowlId) => async dispatch => {
   const res = await csrfFetch(`/api/notebowls/${noteBowlId}/notes`);
-  
   if (res.ok) {
     const notesList = await res.json();
-    console.log('noteslist---------', notesList)
     dispatch(loadNotes(notesList));
   };
 };
@@ -35,7 +33,6 @@ export const createNote = (payload) => async dispatch => {
   });
   if (res.ok) {
     const notes = await res.json();
-    console.log('notes---------', notes)
     dispatch(loadNotes(notes));
     return notes;
   }
