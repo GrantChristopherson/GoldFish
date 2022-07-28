@@ -1,19 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// import { getNote } from '../../store/notes';
+
 
 
 
 const NoteUpdater = ({ showNote, setShowNote, noteId }) => {
 
   const dispatch = useDispatch();
-  const note 
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-
+  const note = useSelector(state => state.notes[noteId])
+   
+  console.log('note===================',note)
+  
+  const [title, setTitle] = useState();   
+  const [content, setContent] = useState();
+  
   useEffect(() => {
-    dispatch()
-  },[dispatch,])
+    
+  },[dispatch, note])
+  if (!note) return null
 
 
   const handleChange = async (e) => {
@@ -25,7 +31,7 @@ const NoteUpdater = ({ showNote, setShowNote, noteId }) => {
 
   return (
     <div>
-      <h2>Note</h2>
+      <h2>{note.title}</h2>
       <div>
         <form onChange={handleChange}>
           <input
