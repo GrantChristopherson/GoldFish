@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteNote, getNoteBowlNotes } from '../../store/notes';
+import { deleteNote } from '../../store/notes';
 import NoteCreator from '../NoteCreator';
 import NoteUpdater from '../NoteUpdater';
 
@@ -14,7 +14,6 @@ const NotesList = ({ showNoteCreator, setShowNoteCreator }) => {
   const noteBowlsNotes = useSelector(state => state.notes.notesList);
   const noteBowlId = useSelector(state => state.notes.noteBowlId);
 
-  
   const [showNote, setShowNote] = useState(false);
   
   useEffect(() => {
@@ -41,11 +40,11 @@ const NotesList = ({ showNoteCreator, setShowNoteCreator }) => {
                   // await dispatch(getNote(note.id))
                   setShowNote(true)
                 }}>
+                    {note.title}
+                </h3>
                   <div>
                     {showNote && <NoteUpdater showNote={showNote} setShowNote={setShowNote} noteId={note.id}/>}
                   </div>
-                    {note.title}
-                </h3>
               </li>
               <div>
               {note.id && <button 
@@ -63,9 +62,6 @@ const NotesList = ({ showNoteCreator, setShowNoteCreator }) => {
       </ul>
       {!showNoteCreator && <button onClick={() => setShowNoteCreator(true)}> + </button>}
       {showNoteCreator && <NoteCreator noteBowlId={noteBowlId} hideNoteCreator={hideNoteCreator}/>}
-      {/* <div>
-      {showNote && <NoteUpdater showNote={showNote} setShowNote={setShowNote}/>}
-      </div> */}
     </div>
   );
 };

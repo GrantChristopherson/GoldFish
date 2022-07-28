@@ -25,7 +25,13 @@ export const getNoteBowlNotes = (noteBowlId) => async dispatch => {
   };
 };
 
-export const getAllNotes =
+// export const getNote = (id) => async dispatch => {
+//   const res = await csrfFetch(`/api/notes/${id}`);
+//   if (res.ok) {
+//     const note = await res.json();
+//     dispatch(loadNotes(note))
+//   }
+// }
 
 export const createNote = (payload) => async dispatch => {
   const res = await csrfFetch(`/api/notes/${payload.userId}`, {
@@ -34,9 +40,9 @@ export const createNote = (payload) => async dispatch => {
     body: JSON.stringify(payload)
   });
   if (res.ok) {
-    const notes = await res.json();
-    dispatch(loadNotes(notes));
-    return notes;
+    const notesList = await res.json();
+    dispatch(loadNotes(notesList));
+    return notesList;
   }
 }
 

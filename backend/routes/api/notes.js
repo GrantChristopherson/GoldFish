@@ -38,9 +38,19 @@ router.get('/:userId', asyncHandler( async(req, res) => {
 }));
 
 
+// READ
+// Get a User's specific Note   (NOT TESTED)
+router.get('/:id', asyncHandler( async(req, res) => {
+  const id = req.params.id;
+  const note = await db.Note.findByPk({
+    where: { id: id }
+  });
+  return res.json( note )
+}));
+
 
 //CREATE
-//Create new Note as User (user.id = note.userId) NOT TESTED YET!
+//Create new Note as User (user.id = note.userId)
 router.post('/:userId', validateNote, asyncHandler( async (req, res) => {
   const { userId, noteBowlId, title, content } = req.body;
   const note = await db.Note.create({ userId, noteBowlId, title, content });
@@ -73,7 +83,7 @@ router.put('/:id', validateNote, asyncHandler( async (req, res) => {
 
 
 // //DELETE
-// //User deletes existing Note (user.id = note.userId) NOT TESTED YET!
+// //User deletes existing Note (user.id = note.userId)
 router.delete('/:id', asyncHandler( async (req, res) => {
   const note = await db.Note.findByPk(req.params.id);
   if (note) {
