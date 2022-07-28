@@ -5,23 +5,25 @@ import { createNote } from '../../store/notes';
 
 
 
-const NoteText = ({ hideNote }) => {
+const NoteCreator = ({ hideNote }) => {
 
 
   const dispatch = useDispatch();
   const sessionUserId = useSelector(state => state.session.user.id);
-  const noteBowlId = useSelector(state => state.noteBowls.id)
+  const noteS = useSelector(state => state.notes.notesList[0].noteBowlId)
 
-  const [noteTitle, setNoteTitle] = useState('');
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
+  if (!noteS) return null
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
       userId: sessionUserId,
-      noteBowlId: noteBowlId,
-      noteTitle,
+      noteBowlId: noteS,
+      title,
       content
     };
 
@@ -43,9 +45,9 @@ const NoteText = ({ hideNote }) => {
       <form onSubmit={handleSubmit}>
         <input 
           type='text'
-          onChange={(e) => setNoteTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder='Title'
-          value={noteTitle}
+          value={title}
           name='title'
         />
         <textarea
@@ -65,4 +67,4 @@ const NoteText = ({ hideNote }) => {
 
 
 
-export default NoteText;
+export default NoteCreator;

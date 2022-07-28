@@ -1,15 +1,17 @@
 
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import NoteText from '../NoteText';
+import { deleteNote } from '../../store/notes';
+import NoteCreator from '../NoteCreator';
 
 
 
 const NotesList = ({ showNote, setShowNote }) => {
 
- 
+  const dispatch = useDispatch();
   const noteBowlsNotes = useSelector(state => state.notes.notesList);
+  const noteBowlId = useSelector(state => state.notes.noteBowlId);
   
   useEffect(() => {
   },[noteBowlsNotes])
@@ -34,14 +36,21 @@ const NotesList = ({ showNote, setShowNote }) => {
                 </h3>
               </li>
               <div>
-                <button> - </button>
+              {note.id && <button 
+                onClick={ async (e) => {
+                  e.preventDefault();
+              
+                  await dispatch(deleteNote(note.id))
+                }
+                }
+                > - </button>}
               </div>
             </div>
           )
         })}
       </ul>
       {!showNote && <button onClick={() => setShowNote(true)}> + </button>}
-      {showNote && <NoteText hideNote={hideNote}/>}
+      {showNote && <NoteCreator noteBowlId={noteBowlId} hideNote={hideNote}/>}
     </div>
   );
 };
