@@ -45,7 +45,7 @@ router.post('/:userId', validateNote, asyncHandler( async (req, res) => {
   const { userId, noteBowlId, title, content } = req.body;
   const note = await db.Note.create({ userId, noteBowlId, title, content });
   const notes = await db.Note.findAll({
-    where: { userId: userId },
+    where: { userId: userId, noteBowlId: noteBowlId },
     order: [['updatedAt', 'DESC']]
   })
   res.json( notes );
