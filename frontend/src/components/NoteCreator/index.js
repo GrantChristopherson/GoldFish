@@ -5,7 +5,7 @@ import { createNote } from '../../store/notes';
 
 
 
-const NoteCreator = ({ hideNote }) => {
+const NoteCreator = ({ hideNoteCreator }) => {
 
 
   const dispatch = useDispatch();
@@ -29,13 +29,13 @@ const NoteCreator = ({ hideNote }) => {
 
     let addNote = await dispatch(createNote(payload));
     if (addNote) {
-      hideNote();
+      hideNoteCreator();
     };
   };
 
   const handleCancelClick = (e) => {
     e.preventDefault();
-    hideNote();
+    hideNoteCreator();
   };
 
 

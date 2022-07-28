@@ -25,6 +25,8 @@ export const getNoteBowlNotes = (noteBowlId) => async dispatch => {
   };
 };
 
+export const getAllNotes =
+
 export const createNote = (payload) => async dispatch => {
   const res = await csrfFetch(`/api/notes/${payload.userId}`, {
     method: 'POST',
@@ -46,6 +48,8 @@ export const deleteNote = (id) => async dispatch => {
     dispatch(removeNote(id))
   }
 }
+
+
 
 
 

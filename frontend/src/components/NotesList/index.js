@@ -1,22 +1,26 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteNote } from '../../store/notes';
+import { deleteNote, getNoteBowlNotes } from '../../store/notes';
 import NoteCreator from '../NoteCreator';
+import NoteUpdater from '../NoteUpdater';
 
 
 
-const NotesList = ({ showNote, setShowNote }) => {
+const NotesList = ({ showNoteCreator, setShowNoteCreator }) => {
 
   const dispatch = useDispatch();
   const noteBowlsNotes = useSelector(state => state.notes.notesList);
   const noteBowlId = useSelector(state => state.notes.noteBowlId);
+
+  
+  const [showNote, setShowNote] = useState(false);
   
   useEffect(() => {
   },[noteBowlsNotes])
 
-  const hideNote = () => setShowNote(false)
+  const hideNoteCreator = () => setShowNoteCreator(false)
 
   if (!noteBowlsNotes) {
     return null;
@@ -31,7 +35,15 @@ const NotesList = ({ showNote, setShowNote }) => {
           return (
             <div key={note.id} className='listed-note'>
               <li key={note.id}>
-                <h3 key={note.id}>
+                <h3 key={note.id} onClick={ async (e) => {
+                  e.preventDefault();
+
+                  // await dispatch(getNote(note.id))
+                  setShowNote(true)
+                }}>
+                  <div>
+                    {showNote && <NoteUpdater showNote={showNote} setShowNote={setShowNote} noteId={note.id}/>}
+                  </div>
                     {note.title}
                 </h3>
               </li>
@@ -49,8 +61,11 @@ const NotesList = ({ showNote, setShowNote }) => {
           )
         })}
       </ul>
-      {!showNote && <button onClick={() => setShowNote(true)}> + </button>}
-      {showNote && <NoteCreator noteBowlId={noteBowlId} hideNote={hideNote}/>}
+      {!showNoteCreator && <button onClick={() => setShowNoteCreator(true)}> + </button>}
+      {showNoteCreator && <NoteCreator noteBowlId={noteBowlId} hideNoteCreator={hideNoteCreator}/>}
+      {/* <div>
+      {showNote && <NoteUpdater showNote={showNote} setShowNote={setShowNote}/>}
+      </div> */}
     </div>
   );
 };

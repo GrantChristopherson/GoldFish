@@ -19,7 +19,7 @@ function App() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showNoteList, setShowNoteList] = useState(false);
-  const [showNote, setShowNote] = useState(false);
+  const [showNoteCreator, setShowNoteCreator] = useState(false);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -32,7 +32,7 @@ function App() {
       <div>
         <Route path='/home'>
           <NoteBowlsList setShowNoteList={setShowNoteList}/>
-          {showNoteList && <NotesList showNote={showNote} setShowNote={setShowNote}/>}
+          {showNoteList && <NotesList showNoteCreator={showNoteCreator} setShowNoteCreator={setShowNoteCreator}/>}
         </Route>
       </div>
     );
