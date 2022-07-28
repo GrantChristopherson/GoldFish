@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD = 'notebowls/LOAD';
-const ADD_NOTEBOWL = 'notebowls/ADD_NOTEBOWL';
+// const ADD_NOTEBOWL = 'notebowls/ADD_NOTEBOWL';
 const REMOVE_NOTEBOWL = 'notebowls/REMOVE_NOTEBOWL';
 
 
@@ -76,14 +76,14 @@ export default function noteBowlReducer(state = initialState, action) {
         ...allUsersNoteBowls,
         list: action.list
       };
-    case ADD_NOTEBOWL:
-        const newState = {
-          ...state,
-          [action.noteBowl.id]: action.noteBowl
-        };
-        const newList = [action.noteBowl, ...state.list]
-        newState.list = newList
-        return newState
+    // case ADD_NOTEBOWL:
+    //     const newState = {
+    //       ...state,
+    //       [action.noteBowl.id]: action.noteBowl
+    //     };
+    //     const newList = [action.noteBowl, ...state.list]
+    //     newState.list = newList
+    //     return newState
     case REMOVE_NOTEBOWL:
         const revisedState = { ...state, list: [ ...state.list] };
         const revisedList = [ ...state.list.filter(

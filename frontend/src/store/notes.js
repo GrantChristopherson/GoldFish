@@ -1,11 +1,17 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_NOTES = 'notes/LOAD_NOTES';
+const REMOVE_NOTE = 'notes/REMOVE_NOTE';
 
 const loadNotes = (notesList) => ({
   type: LOAD_NOTES,
   notesList
 });
+
+const removeNote = (id) => ({
+  type: REMOVE_NOTE,
+  id
+})
 
 
 //-----------Thunk-Action-Creators-------------------//
@@ -35,6 +41,15 @@ export const createNote = (payload) => async dispatch => {
   }
 }
 
+export const deleteNote = (id) => async dispatch => {
+  const res = await csrfFetch(`/api/notes/${id}`, {
+    method: 'delete'
+  });
+  if (res.ok) {
+    dispatch(removeNote(id))
+  }
+}
+
 
 
 //------------------Reducer--------------------------//
@@ -48,7 +63,6 @@ export default function notesReducer(state = initialState, action) {
   switch(action.type) {
     case LOAD_NOTES:
       const noteBowlsNotes = {};
-      console.log('action.list---------', action.notesList)
       action.notesList.forEach(note => {
         noteBowlsNotes[note.id] = note;
       });
@@ -57,6 +71,14 @@ export default function notesReducer(state = initialState, action) {
         ...noteBowlsNotes,
         notesList: action.notesList
       };
+    case REMOVE_NOTE:
+      const newState = { ...state, notesList: [ ...state.notesList] };
+      const newList = [ ...state.notesList.filter(
+        (note) => note.id !== action.id
+      )]
+      const editedArray = [ ...newList ]
+      delete newState[action.id]
+      newState.notesList = editedArray
     default:
       return state;
   };
