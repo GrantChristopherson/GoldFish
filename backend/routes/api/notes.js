@@ -41,15 +41,14 @@ router.get('/:userId', asyncHandler( async(req, res) => {
 
 //CREATE
 //Create new Note as User (user.id = note.userId) NOT TESTED YET!
-
-router.use((req, res, next) => {
-  console.log('====================',req.body)
-  next()
-})
 router.post('/:userId', validateNote, asyncHandler( async (req, res) => {
   const { userId, noteBowlId, title, content } = req.body;
   const note = await db.Note.create({ userId, noteBowlId, title, content });
-  res.json( note );
+  const notes = await db.Note.findAll({
+    where: { userId: userId },
+    order: [['updatedAt', 'DESC']]
+  })
+  res.json( notes );
 }));
 
 

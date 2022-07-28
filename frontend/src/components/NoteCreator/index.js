@@ -10,19 +10,19 @@ const NoteCreator = ({ hideNote }) => {
 
   const dispatch = useDispatch();
   const sessionUserId = useSelector(state => state.session.user.id);
-  const noteS = useSelector(state => state.notes.notesList[0].noteBowlId)
+  const noteId = useSelector(state => state.notes.notesList[0].noteBowlId)
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  if (!noteS) return null
+  if (!noteId) return null
   
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
       userId: sessionUserId,
-      noteBowlId: noteS,
+      noteBowlId: noteId,
       title,
       content
     };
@@ -41,7 +41,7 @@ const NoteCreator = ({ hideNote }) => {
 
   return (
     <div className='note-text'>
-      <h2>Note</h2>
+      <h2>New Note</h2>
       <form onSubmit={handleSubmit}>
         <input 
           type='text'
