@@ -79,6 +79,7 @@ export default function notesReducer(state = initialState, action) {
       const editedArray = [ ...newList ]
       delete newState[action.id]
       newState.notesList = editedArray
+      return newState
     default:
       return state;
   };
