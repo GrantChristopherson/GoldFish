@@ -1,21 +1,21 @@
-import NoteBowlsList from "../NoteBowls";
-import NotesList from "../NotesList";
-import NoteText from "../NoteCreator";
+// import NoteBowlsList from "../NoteBowlsList";
+// import NotesList from "../NotesList";
+// import NoteText from "../NoteCreator";
 
 
-const GoldFishBrowser = () => {
+// const GoldFishBrowser = () => {
   
   
   
-  return (
-    <div>
-      <NoteBowlsList />
-      <NotesList />
-      <NoteText />
-    </div>
-  )
-}
+//   return (
+//     <div>
+//       <NoteBowlsList />
+//       <NotesList />
+//       <NoteText />
+//     </div>
+//   )
+// }
 
 
 
-export default GoldFishBrowser;
+// export default GoldFishBrowser;
