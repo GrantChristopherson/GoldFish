@@ -23,7 +23,7 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
     }
     
   },[dispatch, noteId])
-  
+ 
   if (!note) return null
 
   console.log('noteId=================', noteId)
