@@ -15,11 +15,15 @@ const NotesList = ({ showNoteCreator, setShowNoteCreator }) => {
   const noteBowlId = useSelector(state => state.notes.noteBowlId);
 
   const [showNote, setShowNote] = useState(false);
-  
+  const [noteId, setNoteId] = useState();
+  console.log('noteBowlsNotes====================', noteBowlsNotes)
+  console.log('noteId====================', noteId)
+
   useEffect(() => {
   },[noteBowlsNotes])
 
-  const hideNoteCreator = () => setShowNoteCreator(false)
+  const hideNoteCreator = () => setShowNoteCreator(false);
+  const hideNoteUpdater = () => setShowNote(false);
 
   if (!noteBowlsNotes) {
     return null;
@@ -28,40 +32,45 @@ const NotesList = ({ showNoteCreator, setShowNoteCreator }) => {
 
   return (
     <div className='notes-list'>
-      <h2>Notes</h2>
-      <ul>
-        {noteBowlsNotes && noteBowlsNotes.map(note => {
-          return (
-            <div key={note.id} className='listed-note'>
-              <li key={note.id}>
-                <h3 key={note.id} onClick={ async (e) => {
-                  e.preventDefault();
-
-                  // await dispatch(getNote(note.id))
-                  setShowNote(true)
-                }}>
-                    {note.title}
-                </h3>
-                  <div>
-                    {showNote && <NoteUpdater showNote={showNote} setShowNote={setShowNote} noteId={note.id}/>}
-                  </div>
-              </li>
-              <div>
-              {note.id && <button 
-                onClick={ async (e) => {
-                  e.preventDefault();
-              
-                  await dispatch(deleteNote(note.id))
-                }
+      <div>
+        <h2>Notes</h2>
+        <ul>
+          {noteBowlsNotes && noteBowlsNotes.map(note => {
+            return (
+              <div key={note.id} className='listed-note'>
+                <li key={note.id}>
+                  <h3 key={note.id} onClick={ async (e) => {
+                    e.preventDefault();
+                    setNoteId(note.id)
+                    setShowNote(true)
+                  }}>
+                      {note.title}
+                  </h3>
+                </li>
+                <div>
+                {note.id && <button 
+                  onClick={ async (e) => {
+                    e.preventDefault();
+                
+                    await dispatch(deleteNote(note.id))
+                  }
                 }
                 > - </button>}
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </ul>
-      {!showNoteCreator && <button onClick={() => setShowNoteCreator(true)}> + </button>}
-      {showNoteCreator && <NoteCreator noteBowlId={noteBowlId} hideNoteCreator={hideNoteCreator}/>}
+            )
+          })}
+        </ul>
+        {!showNoteCreator && <button onClick={() => setShowNoteCreator(true)}> + </button>}
+        {showNoteCreator && <NoteCreator noteBowlId={noteBowlId} hideNoteCreator={hideNoteCreator}/>}
+        <div>
+          {showNote && <NoteUpdater 
+            showNote={showNote} 
+            setShowNote={setShowNote} 
+            noteId={noteId}
+            hideNoteUpdater={hideNoteUpdater}/>}
+        </div>
+      </div>
     </div>
   );
 };
