@@ -8,7 +8,7 @@ import NoteUpdater from '../NoteUpdater';
 
 
 
-const NotesList = ({ showNoteCreator, setShowNoteCreator }) => {
+const NotesList = ({ showNoteCreator, setShowNoteCreator, setShowNoteList }) => {
 
   const dispatch = useDispatch();
   const noteBowlsNotes = useSelector(state => state.notes.notesList);
@@ -66,7 +66,7 @@ const NotesList = ({ showNoteCreator, setShowNoteCreator }) => {
         <div>
           {showNote && <NoteUpdater 
             showNote={showNote} 
-            setShowNote={setShowNote} 
+            setShowNote={setShowNote}
             noteId={noteId}
             hideNoteUpdater={hideNoteUpdater}/>}
         </div>
