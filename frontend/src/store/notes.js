@@ -46,6 +46,19 @@ export const createNote = (payload) => async dispatch => {
   }
 }
 
+export const updateNote = (payload) => async dispatch => {
+  const res = await csrfFetch(`/api/notes/${payload.id}`, {
+    method: 'P',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (res.ok) {
+    const notesList = await res.json();
+    dispatch(loadNotes(notesList));
+    return notesList;
+  }
+}
+
 export const deleteNote = (id) => async dispatch => {
   const res = await csrfFetch(`/api/notes/${id}`, {
     method: 'delete'

@@ -6,15 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 
-const NoteUpdater = ({ showNote, setShowNote, noteId }) => {
+const NoteUpdater = ({ showNote, setShowNote, hideNoteUpdater, noteId }) => {
 
   const dispatch = useDispatch();
   const note = useSelector(state => state.notes[noteId])
-   
+  console.log('noteId=================', noteId)
   console.log('note===================',note)
   
-  const [title, setTitle] = useState();   
-  const [content, setContent] = useState();
+  const [title, setTitle] = useState(note.title);   
+  const [content, setContent] = useState(note.content);
   
   useEffect(() => {
     
@@ -22,18 +22,26 @@ const NoteUpdater = ({ showNote, setShowNote, noteId }) => {
   if (!note) return null
 
 
-  const handleChange = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+
+    hideNoteUpdater()
+  };
+
+  const handleCancelClick = (e) => {
+    e.preventDefault();
+    hideNoteUpdater();
   };
 
 
 
   return (
     <div>
-      <h2>{note.title}</h2>
+      <h2>Note: {note.title}</h2>
       <div>
-        <form onChange={handleChange}>
+        <form onSubmit={handleSubmit}>
           <input
             type='text'
             onChange={(e) => setTitle(e.target.value)}
@@ -48,6 +56,8 @@ const NoteUpdater = ({ showNote, setShowNote, noteId }) => {
           >  
           </textarea>
         </form>
+        <button type='submit'>Submit</button>
+        <button type="button" onClick={handleCancelClick}>Cancel</button>
       </div>
     </div>
   );
