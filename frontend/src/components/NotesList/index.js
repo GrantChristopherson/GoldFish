@@ -8,16 +8,13 @@ import NoteUpdater from '../NoteUpdater';
 
 
 
-const NotesList = ({ showNoteCreator, setShowNoteCreator, setShowNoteList }) => {
-
+const NotesList = ({ showNoteCreator, setShowNoteCreator, noteBowlId,  }) => {
+ 
   const dispatch = useDispatch();
   const noteBowlsNotes = useSelector(state => state.notes.notesList);
-  const noteBowlId = useSelector(state => state.notes.noteBowlId);
-
+  
   const [showNote, setShowNote] = useState(false);
   const [noteId, setNoteId] = useState();
-  console.log('noteBowlsNotes====================', noteBowlsNotes)
-  console.log('noteId====================', noteId)
 
   useEffect(() => {
   },[noteBowlsNotes])

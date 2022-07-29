@@ -5,24 +5,21 @@ import { createNote } from '../../store/notes';
 
 
 
-const NoteCreator = ({ hideNoteCreator }) => {
+const NoteCreator = ({ hideNoteCreator, noteBowlId }) => {
 
 
   const dispatch = useDispatch();
   const sessionUserId = useSelector(state => state.session.user.id);
-  const noteId = useSelector(state => state.notes.notesList[0].noteBowlId)
-
+ 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-
-  if (!noteId) return null
   
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
       userId: sessionUserId,
-      noteBowlId: noteId,
+      noteBowlId: noteBowlId,
       title,
       content
     };

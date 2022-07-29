@@ -6,7 +6,6 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import NoteBowlsList from './components/NoteBowlsList';
-import NotesList from './components/NotesList';
 
 
 
@@ -19,7 +18,7 @@ function App() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showNoteList, setShowNoteList] = useState(false);
-  const [showNoteCreator, setShowNoteCreator] = useState(false);
+  // const [showNoteCreator, setShowNoteCreator] = useState(false);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -32,7 +31,7 @@ function App() {
       <div>
         <Route path='/home'>
           <NoteBowlsList setShowNoteList={setShowNoteList}/>
-          {showNoteList && <NotesList showNoteCreator={showNoteCreator} setShowNoteCreator={setShowNoteCreator}/>}
+          {/* {showNoteList && <NotesList showNoteCreator={showNoteCreator} setShowNoteCreator={setShowNoteCreator}/>} */}
         </Route>
       </div>
     );

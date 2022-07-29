@@ -22,7 +22,7 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
       setContent(note.content)
     }
     
-  },[dispatch, noteId])
+  },[dispatch, noteId, note])
   
   if (!note) return null
 
@@ -46,7 +46,6 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
     let updatedNote = await dispatch(updateNote(payload));
     if (updatedNote) {
       console.log('updatedNote===================', updatedNote)
-      // hideNoteUpdater()
     };
   };
 
