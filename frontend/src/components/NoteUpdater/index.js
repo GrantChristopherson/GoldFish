@@ -16,7 +16,13 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
   const [content, setContent] = useState(note.content);
   
   useEffect(() => {
-  },[dispatch, note])
+    console.log('useEffect-noteId===========',noteId)
+    return () => {
+      setTitle(note.title);
+      setContent(note.content)
+    }
+    
+  },[dispatch, noteId])
   
   if (!note) return null
 
