@@ -1,47 +1,55 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { getNote } from '../../store/notes';
+import { updateNote } from '../../store/notes';
 
 
 
 
-const NoteUpdater = ({ showNote, setShowNote, hideNoteUpdater, noteId }) => {
+const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
 
   const dispatch = useDispatch();
   const note = useSelector(state => state.notes[noteId])
-  console.log('noteId=================', noteId)
-  console.log('note===================',note)
+
   
   const [title, setTitle] = useState(note.title);   
   const [content, setContent] = useState(note.content);
   
   useEffect(() => {
-    
   },[dispatch, note])
+  
   if (!note) return null
 
+  console.log('noteId=================', noteId)
+  console.log('note===================', note)
+  console.log('title===================', title)
+  console.log('content===================', content)
 
-  const handleSubmit = async (e) => {
+
+  const handleChange = async (e) => {
     e.preventDefault();
+    
+    const payload = {
+      id: note.id,
+      userId: note.userId,
+      noteBowlId: note.noteBowlId,
+      title: title,
+      content: content
+    };
 
-
-
-    hideNoteUpdater()
+    let updatedNote = await dispatch(updateNote(payload));
+    if (updatedNote) {
+      console.log('updatedNote===================', updatedNote)
+      // hideNoteUpdater()
+    };
   };
-
-  const handleCancelClick = (e) => {
-    e.preventDefault();
-    hideNoteUpdater();
-  };
-
 
 
   return (
     <div>
       <h2>Note: {note.title}</h2>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onChange={handleChange}>
           <input
             type='text'
             onChange={(e) => setTitle(e.target.value)}
@@ -56,8 +64,7 @@ const NoteUpdater = ({ showNote, setShowNote, hideNoteUpdater, noteId }) => {
           >  
           </textarea>
         </form>
-        <button type='submit'>Submit</button>
-        <button type="button" onClick={handleCancelClick}>Cancel</button>
+        <button onClick={() => hideNoteUpdater()}>Close</button>
       </div>
     </div>
   );

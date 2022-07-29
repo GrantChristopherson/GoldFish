@@ -25,13 +25,6 @@ export const getNoteBowlNotes = (noteBowlId) => async dispatch => {
   };
 };
 
-// export const getNote = (id) => async dispatch => {
-//   const res = await csrfFetch(`/api/notes/${id}`);
-//   if (res.ok) {
-//     const note = await res.json();
-//     dispatch(loadNotes(note))
-//   }
-// }
 
 export const createNote = (payload) => async dispatch => {
   const res = await csrfFetch(`/api/notes/${payload.userId}`, {
@@ -43,12 +36,14 @@ export const createNote = (payload) => async dispatch => {
     const notesList = await res.json();
     dispatch(loadNotes(notesList));
     return notesList;
-  }
-}
+  };
+};
+
 
 export const updateNote = (payload) => async dispatch => {
+  console.log('payload==============', payload)
   const res = await csrfFetch(`/api/notes/${payload.id}`, {
-    method: 'P',
+    method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
@@ -56,8 +51,9 @@ export const updateNote = (payload) => async dispatch => {
     const notesList = await res.json();
     dispatch(loadNotes(notesList));
     return notesList;
-  }
-}
+  };
+};
+
 
 export const deleteNote = (id) => async dispatch => {
   const res = await csrfFetch(`/api/notes/${id}`, {
@@ -65,8 +61,8 @@ export const deleteNote = (id) => async dispatch => {
   });
   if (res.ok) {
     dispatch(removeNote(id))
-  }
-}
+  };
+};
 
 
 
