@@ -64,21 +64,26 @@ router.post('/:userId', validateNote, asyncHandler( async (req, res) => {
 
 // //UPDATE
 // //User updates existing Note (changes title of note, or content) (user.id = note.userId) NOT TESTED YET!
+router.use((req, res, next) => {
+  console.log('req.body====================',req.body)
+  next()
+})
 router.put('/:id', validateNote, asyncHandler( async (req, res) => {
-  const { noteBowlId, title, content } = req.body
+  const { id, userId, noteBowlId, title, content } = req.body
   const note = await db.Note.findByPk(req.params.id)
   if (note) {
+    note.id = id,
+    note.userId = userId
     note.noteBowlId = noteBowlId;
     note.title = title;
     note.content = content;
     await note.save();
-    res.json({ 
-      message: 'Success', 
-      note
-    })
-  } else {
-    res.json({ message: 'Fail' })
   }
+  const notes = await db.Note.findAll({
+    where: { userId: userId, noteBowlId: noteBowlId },
+    order: [['updatedAt', 'DESC']]
+  })
+  res.json( notes );
 }));
 
 
