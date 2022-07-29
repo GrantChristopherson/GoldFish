@@ -7,14 +7,15 @@ import { updateNote } from '../../store/notes';
 
 
 const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
-
+ //DO NOT DELETE 2 LINES BELOW
   const dispatch = useDispatch();
   const note = useSelector(state => state.notes[noteId])
 
-  
+  //2 lines useState DON'T DELETE
   const [title, setTitle] = useState(note.title);   
   const [content, setContent] = useState(note.content);
   
+  // useEffect directly below is original DON'T DELETE UNLESS UPDATE FIXED
   useEffect(() => {
     console.log('useEffect-noteId===========',noteId)
     return () => {
@@ -23,7 +24,7 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
     }
     
   },[dispatch, noteId, note])
-  
+
   if (!note) return null
 
   console.log('noteId=================', noteId)
@@ -31,7 +32,7 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
   console.log('title===================', title)
   console.log('content===================', content)
 
-
+// DO NOT DELETE THIS HANDLECHANGE
   const handleChange = async (e) => {
     e.preventDefault();
     
