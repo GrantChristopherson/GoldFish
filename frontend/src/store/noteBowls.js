@@ -40,6 +40,20 @@ export const newNoteBowl = (payload) => async dispatch => {
   }
 };
 
+// export const newDefaultNoteBowl = (payload) => async dispatch => {
+//   const res = await csrfFetch(`/api/notebowls/${payload.userId}`, {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify(payload)
+//   });
+//   if (res.ok) {
+//     const noteBowls = await res.json();
+//     dispatch(load(noteBowls));
+//     return noteBowls;
+//   }
+// };
+
+
 
 export const deleteNoteBowl = (id) => async dispatch => {
   const res = await csrfFetch(`/api/notebowls/${id}`, {
