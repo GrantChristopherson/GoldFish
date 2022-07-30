@@ -18,12 +18,14 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
   // useEffect directly below is original DON'T DELETE UNLESS UPDATE FIXED
   useEffect(() => {
     console.log('useEffect-noteId===========',noteId)
-    return () => {
+    if (note) {
       setTitle(note.title);
       setContent(note.content)
+
     }
+   
     
-  },[dispatch, noteId, note])
+  },[noteId])
 
   if (!note) return null
 
@@ -58,13 +60,13 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
         <form onChange={handleChange}>
           <input
             type='text'
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={ (e) => setTitle(e.target.value)}
             value={title}
             name='title'
           />
           <textarea
             type='text'
-            onChange={(e) => setContent(e.target.value)}
+            onChange={ (e) => setContent(e.target.value)}
             value={content}
             name='content'
           >  
