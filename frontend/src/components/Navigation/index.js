@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import * as sessionActions from "../../store/session";
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
@@ -10,8 +11,14 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }){
 
-
+  const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
+
+  const handleDemoLogin = () => {
+    const credential =  'demo@user.io';
+    const password = 'password';
+    return dispatch(sessionActions.demoLogin({ credential, password }))
+  }
 
   let sessionLinks;
   if (sessionUser) {
@@ -24,7 +31,7 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
-        <button>Demo</button>
+        <button onClick={() => handleDemoLogin()}>Demo</button>
         <LoginFormModal />
         <NavLink to="/signup">Sign Up</NavLink>
       </>

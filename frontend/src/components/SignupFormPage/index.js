@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 
 import * as sessionActions from "../../store/session";
 import './SignupForm.css';
@@ -81,6 +81,7 @@ function SignupFormPage() {
         />
       </label>
       <button type="submit">Sign Up</button>
+      <NavLink exact to="/home">Home</NavLink>
     </form>
   );
 }
