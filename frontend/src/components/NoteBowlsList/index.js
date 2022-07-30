@@ -17,6 +17,9 @@ const NoteBowlsList = ({ setShowNoteList }) => {
   const sessionUser = useSelector(state => state.session.user);
   const usersNoteBowls = useSelector(state => state.noteBowls);
 
+  // testing below
+  const notes = useSelector(state => state.notes)
+
   const [noteBowlIdProp, setNoteBowlIdProp] = useState()
   const [showNoteBowlForm, setShowNoteBowlForm] = useState(false);
   const [showNoteAList, setShowNoteAList] = useState(false);
@@ -26,6 +29,10 @@ const NoteBowlsList = ({ setShowNoteList }) => {
   useEffect(() => {
     dispatch(getNoteBowls(sessionUser.id))
   }, [dispatch, sessionUser.id])
+
+  // testing useEffect below
+  useEffect(() => {
+  }, [notes])
 
   if (!usersNoteBowls) {
     return null;
@@ -60,7 +67,7 @@ const NoteBowlsList = ({ setShowNoteList }) => {
               {!noteBowl.default && <button 
                 onClick={ async (e) => {
                   e.preventDefault();
-              
+                  setShowNoteAList(false)
                   await dispatch(deleteNoteBowl(noteBowl.id))
                 }
               }

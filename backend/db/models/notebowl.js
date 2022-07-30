@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 
   NoteBowl.associate = function(models) {
     // associations can be defined here
-    NoteBowl.hasMany(models.Note, { foreignKey: 'noteBowlId' });
+    NoteBowl.hasMany(models.Note, { foreignKey: 'noteBowlId', onDelete: 'CASCADE', hooks: true });
     NoteBowl.belongsTo(models.User, { foreignKey: 'userId' });
   };
   return NoteBowl;

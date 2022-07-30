@@ -16,10 +16,10 @@ function LoginFormPage() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
-
-  if (sessionUser) {
-    history.push('/home');
-  }
+  // auth me has this conditional but not the one below the handle submit
+  // if (sessionUser) {
+  //   history.push('/home');
+  // }
 
 
   const handleSubmit = (e) => {
@@ -31,6 +31,10 @@ function LoginFormPage() {
         if (data && data.errors) setErrors(data.errors);
       });
   };
+
+  if (sessionUser) {
+    history.push('/home');
+  }
 
 
   return (

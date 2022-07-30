@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as sessionActions from "../../store/session";
@@ -24,7 +24,7 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     sessionLinks = (
       <div>
-        {/* <NavLink exact to="/home">Home</NavLink> */}
+        <NavLink exact to="/home">Home</NavLink>
         <ProfileButton user={sessionUser} />
       </div>
     );
@@ -52,3 +52,4 @@ function Navigation({ isLoaded }){
 }
 
 export default Navigation;
+
