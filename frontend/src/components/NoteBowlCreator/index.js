@@ -23,21 +23,20 @@ const NoteBowlCreator = ({ hideForm }) => {
       title
     };
     setErrors([]);
-    hideForm()
-    return dispatch(newNoteBowl(payload)) 
-      .catch(
-        async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        } 
-      );
+    let err = []
+    if (!title.length || title.length > 30) setErrors('Title must be between 1 and 30 characters');
+    setErrors([...err])
+    if (!errors.length) {
+      hideForm()
+      return dispatch(newNoteBowl(payload)) 
+    } else {
+        return errors
+    }
   }
+        
+
+
    
-  
-  
-    
-
-
   const handleCancelClick = (e) => {
     e.preventDefault();
     hideForm();
