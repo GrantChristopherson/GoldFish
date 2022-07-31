@@ -22,11 +22,12 @@ function Navigation({ isLoaded }){
       .then(() => history.push('/home'))
   }
 
+
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
       <div>
-        {/* <NavLink exact to="/home">Home</NavLink> */}
+        <NavLink exact to="/home">Home</NavLink>
         <ProfileButton user={sessionUser} />
       </div>
     );
