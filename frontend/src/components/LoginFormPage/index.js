@@ -1,6 +1,8 @@
+
+
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 
 
 import * as sessionActions from '../../store/session';
@@ -10,8 +12,8 @@ import './LoginForm.css';
 
 function LoginFormPage() {
 
-  // const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
 
   const [credential, setCredential] = useState('');
@@ -19,9 +21,9 @@ function LoginFormPage() {
   const [errors, setErrors] = useState([]);
 
   //auth me has this conditional but not the one below the handle submit
-  if (sessionUser) {
-    history.push('/home');
-  }
+  // if (sessionUser) {
+  //   history.push('/home');
+  // }
 
 
   const handleSubmit = (e) => {
@@ -37,13 +39,9 @@ function LoginFormPage() {
     );
   };
 
-  // if (sessionUser) {
-  //   history.push('/home');
-  // }
-
 
   return (
-    <div>
+    <div className='logIn-Form'>
       <form className="logInForm" onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
