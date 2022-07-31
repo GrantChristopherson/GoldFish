@@ -25,20 +25,21 @@ const NoteCreator = ({ hideNoteCreator, noteBowlId }) => {
       content
     };
     setErrors([]);
-    let addNote = await dispatch(createNote(payload));
-      // .catch(
-      //   async (res) => {
-      //     const data = await res.json();
-      //     if (data && data.errors) setErrors(data.errors);
-      //   }
-      // );
-    
-    
-    if (addNote) {
+    let err = []
+    if (!title.length || title.length > 30) err.push('Title must be at least 1 character but no more than 50 characters')
+    if (!content) err.push('Add at least something... (1 character minimum)');
+    if (content > 500) err.push('Note can not be more than 500 characters');
+    setErrors([...err])
+    if (!errors.length) {
       hideNoteCreator();
-    };
+      return await dispatch(createNote(payload));
+    } else {
+      return errors
+    }
   };
 
+    
+    
   const handleCancelClick = (e) => {
     e.preventDefault();
     hideNoteCreator();
@@ -77,3 +78,4 @@ const NoteCreator = ({ hideNoteCreator, noteBowlId }) => {
 
 
 export default NoteCreator;
+    
