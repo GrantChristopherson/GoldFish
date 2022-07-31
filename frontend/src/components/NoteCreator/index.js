@@ -13,6 +13,7 @@ const NoteCreator = ({ hideNoteCreator, noteBowlId }) => {
  
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [errors, setErrors] = useState([]);
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,8 +24,16 @@ const NoteCreator = ({ hideNoteCreator, noteBowlId }) => {
       title,
       content
     };
-
+    setErrors([]);
     let addNote = await dispatch(createNote(payload));
+      // .catch(
+      //   async (res) => {
+      //     const data = await res.json();
+      //     if (data && data.errors) setErrors(data.errors);
+      //   }
+      // );
+    
+    
     if (addNote) {
       hideNoteCreator();
     };
@@ -40,23 +49,26 @@ const NoteCreator = ({ hideNoteCreator, noteBowlId }) => {
     <div className='note-text'>
       <h2>New Note</h2>
       <form onSubmit={handleSubmit}>
-        <input 
-          type='text'
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder='Title'
-          value={title}
-          name='title'
-        />
-        <textarea
-          type='text'
-          onChange={(e) => setContent(e.target.value)}
-          placeholder='add to your note...'
-          value={content}
-          name='content'
-        >
-        </textarea>
-        <button type='submit'>Submit</button>
-        <button type="button" onClick={handleCancelClick}>Cancel</button>
+        <ul>
+          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
+          <input 
+            type='text'
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder='Title'
+            value={title}
+            name='title'
+          />
+          <textarea
+            type='text'
+            onChange={(e) => setContent(e.target.value)}
+            placeholder='add to your note...'
+            value={content}
+            name='content'
+          >
+          </textarea>
+          <button type='submit'>Submit</button>
+          <button type="button" onClick={handleCancelClick}>Cancel</button>
       </form>
     </div>
   );
