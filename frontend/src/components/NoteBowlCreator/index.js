@@ -23,6 +23,7 @@ const NoteBowlCreator = ({ hideForm }) => {
       title
     };
     setErrors([]);
+    hideForm()
     return dispatch(newNoteBowl(payload)) 
       .catch(
         async (res) => {
@@ -30,7 +31,6 @@ const NoteBowlCreator = ({ hideForm }) => {
           if (data && data.errors) setErrors(data.errors);
         } 
       );
-      hideForm()
   }
    
   
