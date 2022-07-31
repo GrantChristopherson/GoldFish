@@ -10,7 +10,7 @@ import './Navigation.css';
 
 
 function Navigation({ isLoaded }){
-  
+
   const history = useHistory()
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
@@ -26,7 +26,7 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     sessionLinks = (
       <div>
-        <NavLink exact to="/home">Home</NavLink>
+        {/* <NavLink exact to="/home">Home</NavLink> */}
         <ProfileButton user={sessionUser} />
       </div>
     );
