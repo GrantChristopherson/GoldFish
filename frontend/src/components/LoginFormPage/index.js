@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -9,6 +10,7 @@ import './LoginForm.css';
 
 function LoginFormPage() {
 
+  // const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
 
@@ -16,7 +18,7 @@ function LoginFormPage() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
-  // auth me has this conditional but not the one below the handle submit
+  //auth me has this conditional but not the one below the handle submit
   // if (sessionUser) {
   //   history.push('/home');
   // }
@@ -26,10 +28,13 @@ function LoginFormPage() {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
-      .catch(async (res) => {
+    .then(() => history.push('/home'))
+    .catch(
+      async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
-      });
+      }
+    );
   };
 
   if (sessionUser) {
