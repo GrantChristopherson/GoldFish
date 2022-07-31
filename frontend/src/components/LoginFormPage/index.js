@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -19,9 +19,9 @@ function LoginFormPage() {
   const [errors, setErrors] = useState([]);
 
   //auth me has this conditional but not the one below the handle submit
-  // if (sessionUser) {
-  //   history.push('/home');
-  // }
+  if (sessionUser) {
+    history.push('/home');
+  }
 
 
   const handleSubmit = (e) => {
@@ -37,9 +37,9 @@ function LoginFormPage() {
     );
   };
 
-  if (sessionUser) {
-    history.push('/home');
-  }
+  // if (sessionUser) {
+  //   history.push('/home');
+  // }
 
 
   return (

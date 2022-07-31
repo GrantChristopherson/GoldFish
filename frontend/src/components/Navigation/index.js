@@ -10,7 +10,7 @@ import './Navigation.css';
 
 
 function Navigation({ isLoaded }){
-  
+
   const history = useHistory()
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
@@ -21,6 +21,7 @@ function Navigation({ isLoaded }){
     return dispatch(sessionActions.demoLogin({ credential, password }))
       .then(() => history.push('/home'))
   }
+
 
   let sessionLinks;
   if (sessionUser) {

@@ -20,6 +20,10 @@ const validateNote = [
     .exists({ checkFalsy: true })
     .isLength({ min: 1, max: 50 })
     .withMessage('Please provide a title with 1 to 50 characters.'),
+  check('content')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 1, max: 500 })
+    .withMessage('Please provide content with 1 to 500 characters.'),
   handleValidationErrors
 ]
 
