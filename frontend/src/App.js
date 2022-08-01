@@ -35,16 +35,19 @@ function App() {
     );
   } else {
     sessionComponents = (
-      <div>
-        <h2>Splash Page</h2>
+      <div id='body'>
+        <div>
+          <h2 id='welcome'>Welcome to GoldFish</h2>
+        </div>
       </div>
     )
   }
+
           
   
   
   return (
-    <>
+    <div id='header'>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
@@ -54,7 +57,7 @@ function App() {
         </Switch>
       )}
       {isLoaded && sessionComponents}
-    </>
+    </div>
   );
   };
   

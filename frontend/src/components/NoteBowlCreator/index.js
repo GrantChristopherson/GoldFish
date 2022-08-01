@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { newNoteBowl } from '../../store/noteBowls';
@@ -10,17 +10,19 @@ const NoteBowlCreator = ({ hideForm }) => {
 
   const dispatch = useDispatch();
   const sessionUserId = useSelector(state => state.session.user.id);
+  const listChecker = useSelector(state => state.noteBowls.list)
 
   const [title, setTitle] = useState('');
+  const [isDefault, setIsDefault] = useState(false)
   const [errors, setErrors] = useState([]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
       userId: sessionUserId,
-      title
+      title,
+      default: isDefault
     };
     setErrors([]);
     let err = []
@@ -34,9 +36,6 @@ const NoteBowlCreator = ({ hideForm }) => {
     }
   }
         
-
-
-   
   const handleCancelClick = (e) => {
     e.preventDefault();
     hideForm();

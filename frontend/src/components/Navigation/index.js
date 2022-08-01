@@ -33,23 +33,27 @@ function Navigation({ isLoaded }){
     );
   } else {
     sessionLinks = (
-      <>
-        <button onClick={() => handleDemoLogin()}>Demo</button>
-        <LoginFormModal />
-        <NavLink to="/signup">Sign Up</NavLink>
-      </>
+      <div id='logged-out-nav-bar'>
+        <div id='links-wrapper'>
+          <button onClick={() => handleDemoLogin()}>Demo</button>
+          <LoginFormModal />
+          <NavLink to="/signup">Sign Up</NavLink>
+        </div>
+      </div>
     );
   }
 
   
   return (
-    <div className='nav-bar'>
-      <ul>
-        <li>
-          {/* <NavLink exact to="/home">Home</NavLink> */}
-          {isLoaded && sessionLinks}
-        </li>
-      </ul>
+    <div className='header'>
+      <div className='nav-buttons'>
+        <ul>
+          <li>
+            {/* <NavLink exact to="/home">Home</NavLink> */}
+            {isLoaded && sessionLinks}
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
