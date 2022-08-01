@@ -44,7 +44,6 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
     setErrors([...err])
     if (!errors.length) {
       return await dispatch(updateNote(payload));
-      hideNoteUpdater();
     } else {
       return errors;
     }
@@ -59,6 +58,7 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
           <ul>
             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
           </ul>
+          <button onClick={() => hideNoteUpdater()}>Close</button>
             <input
               type='text'
               onChange={ (e) => setTitle(e.target.value)}
@@ -73,7 +73,6 @@ const NoteUpdater = ({ hideNoteUpdater, noteId }) => {
             >  
             </textarea>
         </form>
-        <button onClick={() => hideNoteUpdater()}>Close</button>
       </div>
     </div>
   );
