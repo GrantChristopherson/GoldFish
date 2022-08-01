@@ -36,8 +36,9 @@ function App() {
   } else {
     sessionComponents = (
       <div id='body'>
-        <div>
-          <h2 id='welcome'>Welcome to GoldFish</h2>
+        <div id='title-wrapper'>
+          <h1 id='welcome'>GoldFish</h1>
+          <h3 id='mindless'>memory for the mindless</h3>
         </div>
       </div>
     )

@@ -46,17 +46,18 @@ function Navigation({ isLoaded }){
   
   return (
     <div className='header'>
+      <div className='image-wrapper'>
+        <img alt='GoldFish logo' src='/GoldFishLogo.png'/>
+      </div>
       <div className='nav-buttons'>
-        <ul>
-          <li>
-            {/* <NavLink exact to="/home">Home</NavLink> */}
-            {isLoaded && sessionLinks}
-          </li>
-        </ul>
+        {/* <NavLink exact to="/home">Home</NavLink> */}
+        {isLoaded && sessionLinks}
       </div>
     </div>
   );
 }
 
 export default Navigation;
+        
+
 

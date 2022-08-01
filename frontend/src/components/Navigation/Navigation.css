@@ -2,9 +2,48 @@
   width: 100%;
   height: 50%;
   display: flex;
-  justify-content: center;
+  justify-content: right;
+  align-items: vertical;
   position: top sticky;
   background-color: rgb(148, 148, 241);
   margin: 0px;
   padding: 0px;
+}
+
+.nav-buttons {
+  flex-direction: vertical;
+  padding:  px;
+  margin: 50 px;
+}
+
+#welcome {
+  display: flex;
+  justify-content: center;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 75px;
+  color: rgb(16, 46, 178);
+  background-color: rgb(148, 148, 241);
+  padding: 0px;
+  margin: 0px;
+}
+
+#mindless {
+  display: flex;
+  justify-content: center;
+  align-items: row;
+  color: white;
+
+}
+
+
+button {
+  background-color: light gray;
+  border-radius: 2px;
+  color: rgb(97, 89, 89);
+}
+
+body {
+  display: flex;
+  justify-content: left;
+  background-color: rgb(148, 148, 241);
 }
