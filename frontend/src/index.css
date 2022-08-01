@@ -7,22 +7,37 @@
 
 html {
   background-color: rgb(210, 210, 246);
-  display: flex;
+  /* display: flex; */
 }
 
 
 body {
   margin: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: vertical;
+  justify-content: right;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
   align-items: center;
 }
 
 
+button {
+  background-color: light gray;
+  border-radius: 2px;
+  color: rgb(97, 89, 89);
+}
 
 
-
+/* #root {
+  
+ 
+  display: flex;
+  flex-direction: vertical;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 3rem;
+  position: relative;
+} */
 /* 
 
 
@@ -41,16 +56,6 @@ html {
 
 
 
-#root {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: vertical;
-  align-items: center;
-  gap: 2rem;
-  padding-bottom: 3rem;
-  position: relative;
-}
 
 .nav-bar {
   display: flex;
