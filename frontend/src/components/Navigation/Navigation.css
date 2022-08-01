@@ -8,3 +8,9 @@
   margin: 0px;
   padding: 0px;
 }
+
+.nav-buttons {
+  flex-direction: vertical;
+  padding:  px;
+  margin: 50 px;
+}
