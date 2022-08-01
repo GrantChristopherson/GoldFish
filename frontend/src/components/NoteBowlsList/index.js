@@ -6,6 +6,7 @@ import { getNoteBowls, deleteNoteBowl } from '../../store/noteBowls';
 import { getNoteBowlNotes } from '../../store/notes'
 import NoteBowlCreator from '../NoteBowlCreator';
 import NotesList from '../NotesList';
+import './noteBowlsList.css';
 
 
 
@@ -43,13 +44,13 @@ const NoteBowlsList = ({ setShowNoteList }) => {
 
   return (
     <div className='noteBowls-list'>
-      <h2>Notebowls</h2>
+      <h2 id='notebowls-header'>Notebowls</h2>
       <ul>
         {usersNoteBowls.list && usersNoteBowls.list.map(noteBowl => {
           return (
             <div  key={noteBowl.id} className='listed-noteBowl'>
               <li key={noteBowl.id}>
-                <h3 key={noteBowl.id} onClick={ async (e) => {
+                <h3 className='mapped-notebowls' key={noteBowl.id} onClick={ async (e) => {
                   e.preventDefault();
 
                   setNoteBowlIdProp(noteBowl.id)
@@ -71,13 +72,14 @@ const NoteBowlsList = ({ setShowNoteList }) => {
                   await dispatch(deleteNoteBowl(noteBowl.id))
                 }
               }
-              > - </button>}
+              id='plus-minus'
+              > -- </button>}
               </div>
             </div>
           )
         })}
       </ul>
-      {!showNoteBowlForm && <button onClick={() => setShowNoteBowlForm(true)}> + </button>}
+      {!showNoteBowlForm && <button id='plus-minus' onClick={() => setShowNoteBowlForm(true)}> + </button>}
       {showNoteBowlForm && <NoteBowlCreator hideForm={hideForm} noteBowlIdProp={noteBowlIdProp} />}
       {showNoteAList && (<NotesList noteBowlId = {currentNoteBowlId} showNoteCreator={showNoteCreator} setShowNoteCreator={setShowNoteCreator}/>)}
     </div>

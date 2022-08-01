@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteNote } from '../../store/notes';
 import NoteCreator from '../NoteCreator';
 import NoteUpdater from '../NoteUpdater';
+import './notesList.css';
 
 
 
@@ -52,7 +53,7 @@ const NotesList = ({ showNoteCreator, setShowNoteCreator, noteBowlId,  }) => {
                     await dispatch(deleteNote(note.id))
                   }
                 }
-                > - </button>}
+                > -- </button>}
                 </div>
               </div>
             )

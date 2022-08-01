@@ -1,0 +1,23 @@
+#note-text {
+  display: flex;
+  align-items: row;
+}
+
+input {
+  height: 25px;
+  width: 50%;
+  border-radius: 2px;
+  background-color: rgb(242, 242, 180);
+}
+
+button {
+  justify-content: vertical;
+  align-items: top;
+  border-radius: 2px;
+}
+
+textarea {
+  height: 800px;
+  width: 500px;
+  background-color: rgb(242, 242, 180);
+}

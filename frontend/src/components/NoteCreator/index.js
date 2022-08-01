@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { createNote } from '../../store/notes';
+import './noteCreator.css';
 
 
 
@@ -50,6 +51,8 @@ const NoteCreator = ({ hideNoteCreator, noteBowlId }) => {
     <div className='note-text'>
       <h2>New Note</h2>
       <form onSubmit={handleSubmit}>
+          <button id='submit-cancel' type='submit'>Submit</button>
+          <button id='submit-cancel' type="button" onClick={handleCancelClick}>Cancel</button>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
@@ -68,8 +71,6 @@ const NoteCreator = ({ hideNoteCreator, noteBowlId }) => {
             name='content'
           >
           </textarea>
-          <button type='submit'>Submit</button>
-          <button type="button" onClick={handleCancelClick}>Cancel</button>
       </form>
     </div>
   );
